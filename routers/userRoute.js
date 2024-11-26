@@ -6,6 +6,8 @@ const DocumentConttroller = require('../controllers/DocumentController');
 const MeetingController = require('../controllers/MeetingController');
 const PerksController = require('../controllers/PerksCotroller')
 const EmployeeController = require('../controllers/EmployeeController')
+const LoginController = require('../controllers/LoginController')
+
 
 
 const router = express.Router();
@@ -82,5 +84,7 @@ router.delete('/perks/:perksId', PerksController.deletePerkDocument);
 
 
 
-router.post('/login',userController.loginUser);
+router.post('/login',LoginController.loginUser);
+router.post('/super',LoginController.SuperAdminLogin);
+
 module.exports = router;

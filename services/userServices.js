@@ -50,14 +50,31 @@ exports.deleteUserByEmployeeId = async (employeeId) => {
   }
 };
 
-exports.authenticateUser = async (userId) => {
+exports.authenticateUser = async (employeeId, password) => {
   try {
-    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: "1h" });
-    return { userId, token };
+    // Ensure employeeId is a string
+    const user = await User.findOne({ employeeId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Verify password (assuming `user.password` stores the hashed password)
+    const isPasswordValid = password === user.password; // Replace with hash verification logic
+    if (!isPasswordValid) {
+      throw new Error("Invalid credentials");
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ employeeId }, JWT_SECRET, { expiresIn: "2h" });
+
+    // Return user data and token
+    return { user, token };
   } catch (error) {
     throw new Error(error.message || "Authentication error");
   }
 };
+
 
 exports.updateUser = async (employeeId, userDetails) => {
   try {
