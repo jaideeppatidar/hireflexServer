@@ -1,18 +1,24 @@
 const express = require('express');
 const userController = require('../controllers/userController');
-const userModel = require('../models/userModel');
 const upload = require('../multerConfig');
 const AsstesController = require('../controllers/AssetsController');
 const DocumentConttroller = require('../controllers/DocumentController');
 const MeetingController = require('../controllers/MeetingController');
 const PerksController = require('../controllers/PerksCotroller')
+const EmployeeController = require('../controllers/EmployeeController')
+
 
 const router = express.Router();
-router.post('/addemployee',  userController.createUser);
-router.get('/addemployee', userController.getAllUsers);
-router.put('/updateemployee/:id', userController.updateUser);
-router.delete('/deleteuser/:id', userController.deleteUser);
-router.get("/getemployee/:id", userController.getUserById);
+
+// Employee Rotures Controller
+router.post('/employee', EmployeeController.CreateEmployee);
+router.get('/employee', EmployeeController.getAllEmployee);
+router.get('/employee/:employeeId', EmployeeController.getEmployeeUserById);
+router.delete('/employee/:employeeId', EmployeeController.deleteEmployee);
+router.put('/employee/:employeeId', EmployeeController.updateEmployee);
+
+
+
 
 
 
