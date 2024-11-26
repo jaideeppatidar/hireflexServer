@@ -6,6 +6,8 @@ const DocumentConttroller = require('../controllers/DocumentController');
 const MeetingController = require('../controllers/MeetingController');
 const PerksController = require('../controllers/PerksCotroller')
 const EmployeeController = require('../controllers/EmployeeController')
+const PoliciesController = require('../controllers/PoliciesController')
+
 const LoginController = require('../controllers/LoginController')
 
 
@@ -57,6 +59,18 @@ router.get('/perks' ,PerksController.getAllPerksDocument);
 router.get('/perks/:perksId' ,PerksController.getPerksDocumentById);
 router.put('/perks/:perksId',upload.single('image'), PerksController.PerksDocumentEdite);
 router.delete('/perks/:perksId', PerksController.deletePerkDocument);
+
+
+// Policies   Employee Documents   
+router.post('/policies',upload.single('file'), PoliciesController.PoliciesCreate);
+router.put('/policies/:policiesId',upload.single('file'), PoliciesController.PoliciesDocumentEdite);
+router.get('/policies', PoliciesController.getAllPolicies);
+router.get('/policies/:policiesId', PoliciesController.getPoliciesDocumentById);
+router.delete('/policies/:policiesId', PoliciesController.deletePolicies);
+
+
+
+
 
 
 
