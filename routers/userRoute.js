@@ -7,6 +7,8 @@ const MeetingController = require('../controllers/MeetingController');
 const PerksController = require('../controllers/PerksCotroller')
 const EmployeeController = require('../controllers/EmployeeController')
 const PoliciesController = require('../controllers/PoliciesController')
+const ExpencesController = require('../controllers/ExpencesController')
+
 
 const LoginController = require('../controllers/LoginController')
 
@@ -67,6 +69,19 @@ router.put('/policies/:policiesId',upload.single('file'), PoliciesController.Pol
 router.get('/policies', PoliciesController.getAllPolicies);
 router.get('/policies/:policiesId', PoliciesController.getPoliciesDocumentById);
 router.delete('/policies/:policiesId', PoliciesController.deletePolicies);
+
+
+// Exprences   Employee Documents   
+router.post('/expences',upload.single('receipt'), ExpencesController.ExpencesDocument);
+router.put('/expences/:expencesId',upload.single('receipt'), ExpencesController.ExpencesDocumentEdite);
+router.delete('/expences/:expencesId', ExpencesController.DeleteExpencesDocument);
+router.get('/expences', ExpencesController.getAllExpences);
+router.get('/expences/:expencesId', ExpencesController.getPoliciesDocumentById);
+
+
+
+
+
 
 
 
