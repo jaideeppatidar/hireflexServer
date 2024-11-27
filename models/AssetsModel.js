@@ -24,7 +24,7 @@ const assetSchema = new mongoose.Schema(
       trim: true,
     },
     dateGiven: {
-      type: Date,
+      type: String,
       required: true,
       default: Date.now,
     },

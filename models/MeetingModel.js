@@ -16,7 +16,7 @@ const meetingSchema = new mongoose.Schema(
       required: true,
     },
     reviewDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     commentsAndNotes: {
@@ -24,7 +24,7 @@ const meetingSchema = new mongoose.Schema(
       required: false, 
     },
     nextMeetingDate: {
-      type: Date,
+      type: String,
       required: false, 
     },
     meetingURL: {

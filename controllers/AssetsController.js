@@ -2,12 +2,17 @@ const AssetsModel = require('../models/AssetsModel')
 exports.AsstesDocuments = async (req, res) => {
     try {
       const { employeeId, employeeName, assetType, dateGiven ,estimatedValue,serialNumber,insuranceDetails} = req.body; 
-      console.log( employeeId, assetType, dateGiven,estimatedValue,serialNumber,insuranceDetails); 
-      const AsstesDocuments = new AssetsModel({
+      const formatDate = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      };
+      const formatedateGiven = formatDate(dateGiven);
+     const AsstesDocuments = new AssetsModel({
         employeeId,
         assetType,
         employeeName,
-        dateGiven: dateGiven || new Date(),
+        dateGiven:formatedateGiven,
         estimatedValue,
         serialNumber,
         insuranceDetails 
@@ -36,13 +41,19 @@ exports.AsstesDocuments = async (req, res) => {
     try {
       const { assetsId } = req.params; 
       const { employeeId, employeeName, assetType, dateGiven, estimatedValue, serialNumber, insuranceDetails } = req.body;
+      const formatDate = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      };
+      const formatedateGiven = formatDate(dateGiven);
         const AsstesDocumentsEdite = await AssetsModel.findOneAndUpdate(
           { assetsId }, 
         {
           employeeId,
           employeeName,
           assetType,
-          dateGiven,
+          dateGiven:formatedateGiven,
           estimatedValue,
           serialNumber,
           insuranceDetails,

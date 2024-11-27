@@ -3,12 +3,19 @@ const MeetingModel = require('../models/MeetingModel')
 exports.MeetingEmployee =  async (req, res) => {
     try {
       const { meetingType, employeeId, reviewDate, commentsAndNotes, nextMeetingDate, meetingURL } = req.body;
+        const formatDate = (date) => {
+          if (!date) return null;
+          const d = new Date(date);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        };
+        const formattedReviewDate = formatDate(reviewDate);
+        const formattedNextMeetingDate = formatDate(nextMeetingDate);
       const meeting = new MeetingModel({
         meetingType,
         employeeId,
-        reviewDate,
+        reviewDate: formattedReviewDate,
         commentsAndNotes,
-        nextMeetingDate,
+        nextMeetingDate: formattedNextMeetingDate,
         meetingURL,
       });
    
@@ -24,14 +31,23 @@ exports.MeetingEmployee =  async (req, res) => {
     try {
       const { meetingId } = req.params; 
       const { meetingType, employeeId, reviewDate, commentsAndNotes, nextMeetingDate, meetingURL } = req.body;
+      const formatDate = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      };
+  
+      const formattedReviewDate = formatDate(reviewDate);
+      const formattedNextMeetingDate = formatDate(nextMeetingDate);
+  
         const updatedMeeting = await MeetingModel.findOneAndUpdate(
         { meetingId }, 
         {
           meetingType,
           employeeId,
-          reviewDate,
+          reviewDate: formattedReviewDate,
           commentsAndNotes,
-          nextMeetingDate,
+          nextMeetingDate: formattedNextMeetingDate,
           meetingURL,
         },
         { new: true, runValidators: true }
