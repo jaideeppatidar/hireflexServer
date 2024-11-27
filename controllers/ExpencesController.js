@@ -21,8 +21,6 @@ exports.ExpencesDocument = async (req, res) => {
       res.status(500).json({ message: 'Error creating expense', error: err.message });
     }
   };
-
-  // Edit expense API
 exports.ExpencesDocumentEdite = async (req, res) => {
     try {
       const { expenseId } = req.params;
@@ -42,8 +40,6 @@ exports.ExpencesDocumentEdite = async (req, res) => {
       res.status(500).json({ message: 'Error updating expense', error: err.message });
     }
   };
-
-  // Delete expense API
 exports.DeleteExpencesDocument = async (req, res) => {
     try {
       const { expenseId } = req.params; 

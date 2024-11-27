@@ -57,6 +57,7 @@ router.put('/perks/:perksId',upload.single('image'), PerksController.PerksDocume
 router.delete('/perks/:perksId', PerksController.deletePerkDocument);
 
 
+
 // Policies   Employee Documents   
 router.post('/policies',upload.single('file'), PoliciesController.PoliciesCreate);
 router.put('/policies/:policiesId',upload.single('file'), PoliciesController.PoliciesDocumentEdite);
@@ -95,22 +96,6 @@ router.put('/timesheet/:timesheetId', TimesheetController.updateTimesheet);
 router.delete('/timesheet/:timesheetId', TimesheetController.deleteTimesheet);
 router.put('/timesheet/approved/:timesheetId', TimesheetController.TimesheetApproveed);
 router.put('/timesheet/reject/:timesheetId', TimesheetController.TimesheetReject);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 router.post('/login',LoginController.loginUser);
