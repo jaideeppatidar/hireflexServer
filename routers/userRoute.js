@@ -8,6 +8,7 @@ const PerksController = require('../controllers/PerksCotroller')
 const EmployeeController = require('../controllers/EmployeeController')
 const PoliciesController = require('../controllers/PoliciesController')
 const ExpencesController = require('../controllers/ExpencesController')
+const  TimeOffController  = require('../controllers/TimeOffRequestController');
 
 
 const LoginController = require('../controllers/LoginController')
@@ -22,11 +23,6 @@ router.get('/employee', EmployeeController.getAllEmployee);
 router.get('/employee/:employeeId', EmployeeController.getEmployeeUserById);
 router.delete('/employee/:employeeId', EmployeeController.deleteEmployee);
 router.put('/employee/:employeeId', EmployeeController.updateEmployee);
-
-
-
-
-
 
 
 
@@ -80,26 +76,12 @@ router.get('/expences/:expencesId', ExpencesController.getPoliciesDocumentById);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// TimeoffRequest   Employee Documents   
+router.post('/timeoff', TimeOffController.TimeOffRequestDoc);
+router.get('/timeoff', TimeOffController.getAllTimeOffRequest);
+router.get('/timeoff/:timeoffId', TimeOffController.getAllTimeOffRequestById);
+router.put('/timeoff/:timeoffId', TimeOffController.TimeOffRequestEdite);
+router.delete('/timeoff/:timeoffId', TimeOffController.TimeOffRequestDelete);
 
 
 
