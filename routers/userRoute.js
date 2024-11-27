@@ -9,6 +9,8 @@ const EmployeeController = require('../controllers/EmployeeController')
 const PoliciesController = require('../controllers/PoliciesController')
 const ExpencesController = require('../controllers/ExpencesController')
 const  TimeOffController  = require('../controllers/TimeOffRequestController');
+const  TimesheetController  = require('../controllers/TimeSheetController');
+
 
 
 const LoginController = require('../controllers/LoginController')
@@ -40,6 +42,8 @@ router.put('/uploaddocument/:documentId', upload.single('documentFile'), Documen
 router.get('/uploaddocument', DocumentConttroller.getAllEmployeeDocuments);
 router.get('/uploaddocument/:documentId', DocumentConttroller.getEmployeeDocumentById);
 router.delete('/uploaddocument/:documentId', DocumentConttroller.EmployeeDocumentsDelete);
+router.put('/uploaddocument/approved/:documentId', DocumentConttroller.EmployeeDocApproveed);
+router.put('/uploaddocument/reject/:documentId', DocumentConttroller.EmployeeDocReject);
 
 
 // Meeting Employee Documents 
@@ -81,7 +85,25 @@ router.post('/timeoff', TimeOffController.TimeOffRequestDoc);
 router.get('/timeoff', TimeOffController.getAllTimeOffRequest);
 router.get('/timeoff/:timeoffId', TimeOffController.getAllTimeOffRequestById);
 router.put('/timeoff/:timeoffId', TimeOffController.TimeOffRequestEdite);
+router.put('/timeoff/approved/:timeoffId', TimeOffController.TimeOffRequestApproveed);
+router.put('/timeoff/reject/:timeoffId', TimeOffController.TimeOffRequestReject);
 router.delete('/timeoff/:timeoffId', TimeOffController.TimeOffRequestDelete);
+
+
+
+// TimeSheet  Employee Documents  
+router.post('/timesheet', TimesheetController.TimeSheetDocument);
+router.get('/timesheet', TimesheetController.getAllTimesheets);
+router.get('/timesheet/:timesheetId', TimesheetController.getTimesheetById);
+router.put('/timesheet/:timesheetId', TimesheetController.updateTimesheet);
+router.delete('/timesheet/:timesheetId', TimesheetController.deleteTimesheet);
+router.put('/timesheet/approved/:timesheetId', TimesheetController.TimesheetApproveed);
+router.put('/timesheet/reject/:timesheetId', TimesheetController.TimesheetReject);
+
+
+
+
+
 
 
 

@@ -125,4 +125,49 @@ exports.EmployeeDocument = async (req, res) => {
       });
     }
   };
+  exports.EmployeeDocApproveed = async (req, res) => {
+    try {
+      const { documentId } = req.params;
+      const updatedDocument = await DocumentModel.findOneAndUpdate(
+        { documentId },
+        { status: "Approved" },
+        { new: true }
+      );
+      res.status(200).json({
+        message: "Document request approved successfully",
+        data: updatedDocument,
+      });
+    } catch (err) {
+      console.error("Error approving Document request:", err);
+      res
+        .status(500)
+        .json({
+          message: "Error approving Document request",
+          error: err.message,
+        });
+    }
+  };
+  exports.EmployeeDocReject = async (req, res) => {
+    try {
+      const { documentId } = req.params;
+      const updatedDocument = await DocumentModel.findOneAndUpdate(
+        { documentId },
+        { status: "Rejected" },
+        { new: true }
+      );
+  
+      res.status(200).json({
+        message: "Document request rejected successfully",
+        data: updatedDocument,
+      });
+    } catch (err) {
+      console.error("Error rejecting Document request:", err);
+      res
+        .status(500)
+        .json({
+          message: "Error rejecting Document request",
+          error: err.message,
+        });
+    }
+  };
 
