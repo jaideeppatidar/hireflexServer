@@ -76,6 +76,51 @@ exports.DeleteExpencesDocument = async (req, res) => {
       res.status(500).json({ error: error.message || 'An unexpected error occurred' });
     }
   };
+  exports.ExpnencesApproveed = async (req, res) => {
+    try {
+      const { expenseId } = req.params;
+      const ExpnencesTimesheet = await ExpencesModel.findOneAndUpdate(
+        { expenseId },
+        { status: "Approved" },
+        { new: true }
+      );
+      res.status(200).json({
+        message: "Expnences request approved successfully",
+        data: ExpnencesTimesheet,
+      });
+    } catch (err) {
+      console.error("Error approving Expnences request:", err);
+      res
+        .status(500)
+        .json({
+          message: "Error approving Expnences request",
+          error: err.message,
+        });
+    }
+  };
+  exports.ExpnencesReject = async (req, res) => {
+    try {
+      const { expenseId } = req.params;
+      const ExpnencesTimesheet = await ExpencesModel.findOneAndUpdate(
+        { expenseId },
+        { status: "Rejected" },
+        { new: true }
+      );
+  
+      res.status(200).json({
+        message: "Timesheet request Expnences successfully",
+        data: ExpnencesTimesheet,
+      });
+    } catch (err) {
+      console.error("Error rejecting Expnences request:", err);
+      res
+        .status(500)
+        .json({
+          message: "Error rejecting Expnences request",
+          error: err.message,
+        });
+    }
+  };
   
   
   

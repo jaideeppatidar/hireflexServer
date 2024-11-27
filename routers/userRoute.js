@@ -1,5 +1,4 @@
 const express = require('express');
-const userController = require('../controllers/userController');
 const upload = require('../multerConfig');
 const AsstesController = require('../controllers/AssetsController');
 const DocumentConttroller = require('../controllers/DocumentController');
@@ -10,12 +9,7 @@ const PoliciesController = require('../controllers/PoliciesController')
 const ExpencesController = require('../controllers/ExpencesController')
 const  TimeOffController  = require('../controllers/TimeOffRequestController');
 const  TimesheetController  = require('../controllers/TimeSheetController');
-
-
-
 const LoginController = require('../controllers/LoginController')
-
-
 
 const router = express.Router();
 
@@ -77,6 +71,8 @@ router.put('/expences/:expencesId',upload.single('receipt'), ExpencesController.
 router.delete('/expences/:expencesId', ExpencesController.DeleteExpencesDocument);
 router.get('/expences', ExpencesController.getAllExpences);
 router.get('/expences/:expencesId', ExpencesController.getPoliciesDocumentById);
+router.put('/expences/approved/:expencesId', ExpencesController.ExpnencesApproveed);
+router.put('/expences/reject/:expencesId', ExpencesController.ExpnencesReject);
 
 
 
