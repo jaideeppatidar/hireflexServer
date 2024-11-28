@@ -19,6 +19,11 @@ const DocumentSchema = new mongoose.Schema({
   url: {
     type: String,
   },
+  category: {
+    type: String, 
+    required: true, // Ensures a category is always provided
+   
+  },
 });
 
 const PerksDocument = mongoose.model("perks", DocumentSchema);

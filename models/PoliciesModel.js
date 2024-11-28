@@ -13,8 +13,8 @@ const policySchema = new mongoose.Schema({
     trim: true,
   },
   uploadDate: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    required: true,
   },
   current: {
     type: Boolean,
@@ -22,8 +22,8 @@ const policySchema = new mongoose.Schema({
     default: false,
   },
   file: {
-    type: String,
-    required: false,
+    type: String, 
+    // required: false,
   },
   description: {
     type: String,

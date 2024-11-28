@@ -1,37 +1,53 @@
 
 const  PoliciesModel = require ('../models/PoliciesModel')
 exports.PoliciesCreate = async (req, res) => {
-    try {
-        const { policyName, current, description } = req.body;
-        const currentDate = new Date().toISOString().split("T")[0];
-        const newPolicy = new PoliciesModel({
-            policyName,
-            uploadDate: currentDate,
-            current: current || false,
-            file: req.file ? req.file.buffer : null, // Save the file buffer
-            description,
-        });
-        const savedPolicy = await newPolicy.save();
-        res.status(201).json(savedPolicy);
-    } catch (err) {
-        res.status(500).json({ message: "Error creating policy", error: err.message });
-    }
+  try {
+      const { policyName, current, description,uploadDate } = req.body;
+      const formatDate = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      };
+      const formatteduploadDate = formatDate(uploadDate);
+      const currentValue = (current === 'true' || current === true);
+      const filePath = req.file ? req.file.path : null;
+        
+      const newPolicy = new PoliciesModel({
+          policyName,
+          uploadDate: formatteduploadDate,
+          current:currentValue,
+          file: filePath, // Save only the file path as a string
+          description,
+      });
+
+      const savedPolicy = await newPolicy.save();
+      res.status(201).json(savedPolicy);
+  } catch (err) {
+      res.status(500).json({ message: "Error creating policy", error: err.message });
+  }
 };
+
 
 exports.PoliciesDocumentEdite =  async (req, res) => {
     try {
         const { policiesId } = req.params;
-        const { policyName, current, description } = req.body;
-        const currentDate = new Date().toISOString().split("T")[0];
+        const { policyName, current, description,uploadDate } = req.body;
+        const formatDate = (date) => {
+          if (!date) return null;
+          const d = new Date(date);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        };
+        const formatteduploadDate = formatDate(uploadDate);
+        const currentValue = (current === 'true' || current === true);
 
         const updatedPolicy = await PoliciesModel.findOneAndUpdate(
             {policiesId},
             {
                 policyName,
-                current: current || false,
+                current:currentValue,
                 description,
-                file: req.file ? req.file.buffer : undefined, 
-                uploadDate: currentDate, 
+                file: req.file ? req.file.path : undefined,
+                uploadDate: formatteduploadDate, 
             },
             { new: true, runValidators: true }
         );
