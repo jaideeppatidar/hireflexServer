@@ -10,11 +10,20 @@ exports.TimeOffRequestDoc = async (req, res) => {
       status,
       employeeId,
     } = req.body;
-
+    const formatDate = (date) => {
+      if (!date) return null;
+      const d = new Date(date);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+        2,
+        "0"
+      )}-${String(d.getDate()).padStart(2, "0")}`;
+    };
+    const formattedstartDate = formatDate(startDate);
+    const formattedendDate = formatDate(endDate);
     const newTimeOff = new TimeOffReqModel({
       employeeId,
-      startDate,
-      endDate,
+      startDate: formattedstartDate,
+      endDate: formattedendDate,
       partialDays,
       reason,
       type,
@@ -34,12 +43,22 @@ exports.TimeOffRequestEdite = async (req, res) => {
   try {
     const { timeoffId } = req.params;
     const { startDate, endDate, partialDays, reason, type, status } = req.body;
+    const formatDate = (date) => {
+      if (!date) return null;
+      const d = new Date(date);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+        2,
+        "0"
+      )}-${String(d.getDate()).padStart(2, "0")}`;
+    };
+    const formattedstartDate = formatDate(startDate);
+    const formattedendDate = formatDate(endDate);
     const updatedTimeOff = await TimeOffReqModel.findOneAndUpdate(
       { timeoffId },
       {
         employeeId,
-        startDate,
-        endDate,
+        startDate: formattedstartDate,
+        endDate: formattedendDate,
         partialDays,
         reason,
         type,
@@ -115,12 +134,10 @@ exports.TimeOffRequestApproveed = async (req, res) => {
     });
   } catch (err) {
     console.error("Error approving time-off request:", err);
-    res
-      .status(500)
-      .json({
-        message: "Error approving time-off request",
-        error: err.message,
-      });
+    res.status(500).json({
+      message: "Error approving time-off request",
+      error: err.message,
+    });
   }
 };
 exports.TimeOffRequestReject = async (req, res) => {
@@ -138,11 +155,9 @@ exports.TimeOffRequestReject = async (req, res) => {
     });
   } catch (err) {
     console.error("Error rejecting time-off request:", err);
-    res
-      .status(500)
-      .json({
-        message: "Error rejecting time-off request",
-        error: err.message,
-      });
+    res.status(500).json({
+      message: "Error rejecting time-off request",
+      error: err.message,
+    });
   }
 };

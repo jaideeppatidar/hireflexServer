@@ -3,19 +3,27 @@ exports.EmployeeDocument = async (req, res) => {
     try {
       const { employeeName, employeeId, documentName, uploadDate, status, uploaded } =
         req.body;
-      const documentFile = req.file ? req.file.path : null;
-      const validUploadDate = new Date(uploadDate);
-      if (isNaN(validUploadDate.getTime())) {
-        return res.status(400).json({ error: "Invalid upload date" });
+      const image = req.file ? req.file.path : null;
+      if (!image) {
+        return res.status(400).json({ error: "Image file is required" });
       }
+      const formatDate = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+          2,
+          "0"
+        )}-${String(d.getDate()).padStart(2, "0")}`;
+      };
+      const formatuploadDate = formatDate(uploadDate);
       
       const EmployeeDocument = new DocumentModel({
         employeeName,
         employeeId,
         documentName,
-        uploadDate: validUploadDate,
+        uploadDate: formatuploadDate,
         status,
-        documentFile,
+        image,
         uploaded,
       });
       await EmployeeDocument.save();
@@ -35,7 +43,7 @@ exports.EmployeeDocument = async (req, res) => {
       const { documentId } = req.params; 
       const { employeeName, uploadDate, status, uploaded ,documentName} = req.body;
   
-      const documentFile = req.file ? req.file.path : null; 
+      const image = req.file ? req.file.path : null; 
       const validUploadDate = uploadDate ? new Date(uploadDate) : null;
         if (uploadDate && isNaN(validUploadDate.getTime())) {
         return res.status(400).json({ error: "Invalid upload date" });
@@ -49,7 +57,7 @@ exports.EmployeeDocument = async (req, res) => {
       if (validUploadDate) document.uploadDate = validUploadDate;
       if (documentName) document.documentName = documentName;
       if (status) document.status = status;
-      if (documentFile) document.documentFile = documentFile;
+      if (image) document.image = image;
       if (uploaded !== undefined) document.uploaded = uploaded;
   
       await document.save();

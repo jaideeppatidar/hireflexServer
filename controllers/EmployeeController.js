@@ -58,6 +58,28 @@ exports.CreateEmployee = async (req, res) => {
       return res.status(400).json({ error: "User already registered with this email" });
     }
 
+
+// date formate 
+
+    const formatDate = (date) => {
+      if (!date) return null;
+      const d = new Date(date);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+        2,
+        "0"
+      )}-${String(d.getDate()).padStart(2, "0")}`;
+    };
+    const formatteddob = formatDate(dob);
+    const formattedjoiningDate = formatDate(joiningDate);
+    const formattedemploymentStartDate = formatDate(employmentStartDate);
+    const formattedprobationStartDate = formatDate(probationStartDate);
+    const formattedpassportExpiryDate = formatDate(passportExpiryDate);
+    const formatteddateOfExpiry = formatDate(dateOfExpiry);
+    const formattedvisaExpiryDate = formatDate(visaExpiryDate);
+
+
+
+
     // Generate employeeId in the format HFX0001
     const lastEmployee = await mongoose.model('Employee').findOne().sort({ employeeId: -1 });
     const lastEmployeeId = lastEmployee ? lastEmployee.employeeId : "HFX0000";
@@ -78,13 +100,13 @@ exports.CreateEmployee = async (req, res) => {
       mobile,
       designation,
       department,
-      joiningDate,
+      joiningDate: formattedjoiningDate,
       email,
       role,
-      dob,
+      dob:formatteddob,
       education,
-      employmentStartDate,
-      probationStartDate,
+      employmentStartDate: formattedemploymentStartDate,
+      probationStartDate: formattedprobationStartDate,
       address1,
       address,
       address2,
@@ -104,12 +126,12 @@ exports.CreateEmployee = async (req, res) => {
       niNumber,
       passportNumber,
       countryOfIssue,
-      passportExpiryDate,
+      passportExpiryDate: formattedpassportExpiryDate,
       licenseNumber,
       licenseClass,
-      dateOfExpiry,
+      dateOfExpiry :formatteddateOfExpiry,
       visaNumber,
-      visaExpiryDate
+      visaExpiryDate:formattedvisaExpiryDate
     });
     await sendWelcomeEmail(newUser);
     res.status(201).json({

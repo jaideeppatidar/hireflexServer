@@ -8,13 +8,13 @@ const leaveRequestSchema = new Schema({
     default: () => uuidv4(),
     unique: true,
   },
-  employeeId: { type: String, unique: true, required: true },
+  employeeId: { type: String,required: true },
   startDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   endDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   partialDays: {

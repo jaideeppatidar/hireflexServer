@@ -16,14 +16,21 @@ exports.TimeSheetDocument = async (req, res) => {
         attendanceStatus,
         status,
       } = req.body;
+      const formatDate = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      };
+      const formattedinDate = formatDate(inDate);
+      const formattedoutDate = formatDate(outDate);
       const newTimesheet = new TimeSheetModel({
         employeeId,
         employeeName,
-        inDate,
+        inDate:formattedinDate,
         inTimeHH,
         inTimeMM,
         inPeriod,
-        outDate,
+        outDate:formattedoutDate,
         outTimeHH,
         outTimeMM,
         outPeriod,
@@ -52,6 +59,15 @@ exports.TimeSheetDocument = async (req, res) => {
     try {
         const { timesheetId } = req.params;
       const timesheet = await TimeSheetModel.findOne({timesheetId});
+      res.status(200).json(timesheet);
+    } catch (err) {
+      res.status(500).json({ message: 'Error fetching timesheet', error: err.message });
+    }
+  };
+  exports.getTimsheetEmployeeIdById = async (req, res) => {
+    try {
+        const { employeeId } = req.params;
+      const timesheet = await TimeSheetModel.findOne({employeeId});
       res.status(200).json(timesheet);
     } catch (err) {
       res.status(500).json({ message: 'Error fetching timesheet', error: err.message });

@@ -18,7 +18,7 @@ const timesheetSchema = new Schema(
       required: true,
     },
     inDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     inTimeHH: {
@@ -31,11 +31,10 @@ const timesheetSchema = new Schema(
     },
     inPeriod: {
       type: String,
-      enum: ["AM", "PM"],
       required: true,
     },
     outDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     outTimeHH: {

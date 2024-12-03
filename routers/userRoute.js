@@ -31,8 +31,8 @@ router.get("/assets/:assetsId", AsstesController.AsstesDocumentsById);
 
 
 // Documents Documents Routers 
-router.post('/uploaddocument', upload.single('documentFile'), DocumentConttroller.EmployeeDocument);
-router.put('/uploaddocument/:documentId', upload.single('documentFile'), DocumentConttroller.EmployeeDocumentEdite);
+router.post('/uploaddocument', upload.single('image'), DocumentConttroller.EmployeeDocument);
+router.put('/uploaddocument/:documentId', upload.single('image'), DocumentConttroller.EmployeeDocumentEdite);
 router.get('/uploaddocument', DocumentConttroller.getAllEmployeeDocuments);
 router.get('/uploaddocument/:documentId', DocumentConttroller.getEmployeeDocumentById);
 router.delete('/uploaddocument/:documentId', DocumentConttroller.EmployeeDocumentsDelete);
@@ -45,6 +45,7 @@ router.post('/meeting', MeetingController.MeetingEmployee);
 router.put("/meeting/:meetingId", MeetingController.MeetingEmployeeEdite);
 router.get('/meeting', MeetingController.getAllMeetings);
 router.get("/meeting/:meetingId", MeetingController.getMeetingById);
+router.get("/meetings/:employeeId", MeetingController.getEmployeeById);
 router.delete('/meeting/:meetingId', MeetingController.MeetingEmployeeDelete);
  
 
@@ -67,11 +68,12 @@ router.delete('/policies/:policiesId', PoliciesController.deletePolicies);
 
 
 // Exprences   Employee Documents   
-router.post('/expences',upload.single('receipt'), ExpencesController.ExpencesDocument);
-router.put('/expences/:expencesId',upload.single('receipt'), ExpencesController.ExpencesDocumentEdite);
+router.post('/expences',upload.single('receiptFileName'), ExpencesController.ExpencesDocument);
+router.put('/expences/:expencesId',upload.single('receiptFileName'), ExpencesController.ExpencesDocumentEdite);
 router.delete('/expences/:expencesId', ExpencesController.DeleteExpencesDocument);
 router.get('/expences', ExpencesController.getAllExpences);
 router.get('/expences/:expencesId', ExpencesController.getPoliciesDocumentById);
+router.get('/expencess/:employeeId', ExpencesController.getEmployeedDocumentById);
 router.put('/expences/approved/:expencesId', ExpencesController.ExpnencesApproveed);
 router.put('/expences/reject/:expencesId', ExpencesController.ExpnencesReject);
 
@@ -92,6 +94,7 @@ router.delete('/timeoff/:timeoffId', TimeOffController.TimeOffRequestDelete);
 router.post('/timesheet', TimesheetController.TimeSheetDocument);
 router.get('/timesheet', TimesheetController.getAllTimesheets);
 router.get('/timesheet/:timesheetId', TimesheetController.getTimesheetById);
+router.get('/timesheet/:employeeId', TimesheetController.getTimsheetEmployeeIdById);
 router.put('/timesheet/:timesheetId', TimesheetController.updateTimesheet);
 router.delete('/timesheet/:timesheetId', TimesheetController.deleteTimesheet);
 router.put('/timesheet/approved/:timesheetId', TimesheetController.TimesheetApproveed);

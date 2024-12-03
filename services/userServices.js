@@ -1,4 +1,6 @@
 const helper = require("../utils/helper");
+const bcrypt = require("bcrypt");
+
 const User = require('../models/EmployeeModel'); 
 const JWT_SECRET = process.env.JWT_SECRET || "fallback_secret_key";
 const jwt = require("jsonwebtoken");
@@ -52,15 +54,10 @@ exports.deleteUserByEmployeeId = async (employeeId) => {
 
 exports.authenticateUser = async (employeeId, password) => {
   try {
-    // Ensure employeeId is a string
     const user = await User.findOne({ employeeId });
-
     if (!user) {
       throw new Error("User not found");
-    }
-
-    // Verify password (assuming `user.password` stores the hashed password)
-    const isPasswordValid = password === user.password; // Replace with hash verification logic
+    }    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new Error("Invalid credentials");
     }

@@ -23,19 +23,15 @@ const DocumentSchema = new mongoose.Schema({
     trim: true,
   },
   uploadDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   uploaded: {
     type: String,
+    enum: ['True', 'False'], // Update to match expected values
     required: true,
-    enum: ['YES', 'NO'], 
-    default: 'NO',
   },
-  documentFile: {
-    type: Buffer, 
-    required: false,
-  },
+  image: { type: String, required: true },
   status: {
     type: String,
     enum: ['PENDING', 'APPROVED', 'REJECTED'], 

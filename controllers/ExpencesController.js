@@ -2,7 +2,7 @@ const ExpencesModel =  require('../models/ExpencesModel')
 exports.ExpencesDocument = async (req, res) => {
     try {
       const { employeeName, employeeId, expenseDate, expenseDescription, expenseType, amount } = req.body;
-        const receiptFileName = req.file ? req.file.buffer : null 
+        const receiptFileName = req.file ? req.file.filename : null 
       
       const newExpense = new ExpencesModel({
         employeeName,
@@ -16,7 +16,7 @@ exports.ExpencesDocument = async (req, res) => {
       });
   
       const savedExpense = await newExpense.save();
-      res.status(201).json(savedExpense);
+      res.status(201).json({savedExpense: savedExpense});
     } catch (err) {
       res.status(500).json({ message: 'Error creating expense', error: err.message });
     }
@@ -25,7 +25,7 @@ exports.ExpencesDocumentEdite = async (req, res) => {
     try {
       const { expenseId } = req.params;
       const { employeeName, employeeId, expenseDate, expenseDescription, expenseType, amount } = req.body;
-          const receiptFileName = req.file ? req.file.buffer : null; 
+          const receiptFileName = req.file ? req.file.filename : null; 
         const expense = await ExpencesModel.findOneAndUpdate({expenseId});
       expense.employeeName = employeeName || expense.employeeName;
       expense.employeeId = employeeId || expense.employeeId;
@@ -115,6 +115,19 @@ exports.DeleteExpencesDocument = async (req, res) => {
           message: "Error rejecting Expnences request",
           error: err.message,
         });
+    }
+  };
+  exports.getEmployeedDocumentById = async (req, res) => {
+    try {
+      const { employeeId } = req.params;
+      const expencesDocument = await ExpencesModel.find({employeeId});
+      res.status(200).json({
+        message: 'employeeId  fetched By Id successfully',
+        document: expencesDocument,
+      });
+    } catch (error) {
+      console.error('Error fetching document:', error);
+      res.status(500).json({ error: error.message || 'An unexpected error occurred' });
     }
   };
   

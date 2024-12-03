@@ -13,7 +13,7 @@ const expenseSchema = new mongoose.Schema({
   expenseDescription: { type: String, required: true },
   expenseType: { type: String, required: true },
   amount: { type: Number, required: true },
-  receiptFileName: { type: String, required: true },
+  receiptFileName: { type: String},
   status: { type: String, default: "PENDING" },
 });
 

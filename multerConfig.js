@@ -1,10 +1,17 @@
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 
-// Disk storage setup for saving files locally
+// Ensure the uploads directory exists
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Disk storage setup
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Ensure "uploads" directory exists
+    cb(null, "uploads/"); // Files will be stored in the "uploads" directory
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
@@ -12,17 +19,21 @@ const storage = multer.diskStorage({
   },
 });
 
+// File filter
+const fileFilter = (req, file, cb) => {
+  const validTypes = ["application/pdf", "image/jpeg", "image/png"];
+  if (validTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Invalid file type. Please upload a PDF, JPEG, or PNG file."), false);
+  }
+};
+
 // Initialize multer
 const upload = multer({
   storage,
-  fileFilter: (req, file, cb) => {
-    const validTypes = ["application/pdf", "image/jpeg", "image/png"];
-    if (validTypes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error("Invalid file type. Please upload a PDF, JPEG, or PNG file."), false);
-    }
-  },
+  fileFilter,
+  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
 });
 
 module.exports = upload;
