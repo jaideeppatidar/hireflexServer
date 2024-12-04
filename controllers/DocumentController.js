@@ -178,4 +178,17 @@ exports.EmployeeDocument = async (req, res) => {
         });
     }
   };
+  exports.getEmployeedDocumentById = async (req, res) => {
+    try {
+      const { employeeId } = req.params;
+      const Document = await DocumentModel.find({employeeId});
+      res.status(200).json({
+        message: 'employeeId  fetched By Id successfully',
+        document: Document,
+      });
+    } catch (error) {
+      console.error('Error fetching document:', error);
+      res.status(500).json({ error: error.message || 'An unexpected error occurred' });
+    }
+  };
 

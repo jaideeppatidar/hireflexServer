@@ -123,11 +123,21 @@ exports.getAllTimeOffRequestById = async (req, res) => {
 exports.TimeOffRequestApproveed = async (req, res) => {
   try {
     const { timeoffId } = req.params;
+    
+    // Update the query to match the correct field name
     const updatedTimeOff = await TimeOffReqModel.findOneAndUpdate(
-      { timeoffId },
-      { status: "Approved" },
+      { timeoffId: timeoffId }, // Use singular `timeoffId`
+      { status: "APPROVED" },
       { new: true }
     );
+
+    if (!updatedTimeOff) {
+      return res.status(404).json({
+        message: "Timeoff not found",
+        requestedId: timeoffId,
+      });
+    }
+
     res.status(200).json({
       message: "Timeoff request approved successfully",
       data: updatedTimeOff,
@@ -140,24 +150,52 @@ exports.TimeOffRequestApproveed = async (req, res) => {
     });
   }
 };
+
+
 exports.TimeOffRequestReject = async (req, res) => {
   try {
     const { timeoffId } = req.params;
-    const updatedTimeOff = await TimeOffReqModel.findOneAndUpdate(
-      { timeoffId },
-      { status: "Rejected" },
+
+    const updatedExpense = await TimeOffReqModel.findOneAndUpdate(
+      { timeoffId: timeoffId },
+      { status: "REJECTED" },
       { new: true }
     );
 
+    if (!updatedExpense) {
+      return res.status(404).json({
+        message: "timeoffId not found",
+        requestedId: timeoffId
+      });
+    }
+
     res.status(200).json({
-      message: "Timeoff request rejected successfully",
-      data: updatedTimeOff,
+      message: "timeoffId request approved successfully",
+      data: updatedExpense,
     });
   } catch (err) {
-    console.error("Error rejecting time-off request:", err);
     res.status(500).json({
-      message: "Error rejecting time-off request",
+      message: "Error approving expenses request",
       error: err.message,
     });
+  }
+};
+
+
+
+
+exports.getAllEmployeeTimeOffRequestById = async (req, res) => {
+  try {
+    const { employeeId } = req.params;
+    const timeoffDocument = await TimeOffReqModel.findOne({ employeeId });
+    res.status(200).json({
+      message: "employeeId  fetched By Id successfully",
+      document: timeoffDocument,
+    });
+  } catch (error) {
+    console.error("Error fetching document:", error);
+    res
+      .status(500)
+      .json({ error: error.message || "An unexpected error occurred" });
   }
 };

@@ -19,7 +19,6 @@ exports.CreateEmployee = async (req, res) => {
       designation,
       department,
       email,
-      joiningDate,
       role,
       dob,
       education,

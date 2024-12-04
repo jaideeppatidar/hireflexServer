@@ -21,8 +21,13 @@ const storage = multer.diskStorage({
 
 // File filter
 const fileFilter = (req, file, cb) => {
-  const validTypes = ["application/pdf", "image/jpeg", "image/png"];
-  if (validTypes.includes(file.mimetype)) {
+  const validTypes = [
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "text/csv",
+    "application/vnd.ms-excel",
+  ];  if (validTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(new Error("Invalid file type. Please upload a PDF, JPEG, or PNG file."), false);

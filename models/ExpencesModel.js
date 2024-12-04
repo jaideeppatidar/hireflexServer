@@ -9,13 +9,17 @@ const expenseSchema = new mongoose.Schema({
   },
   employeeName: { type: String, required: true },
   employeeId: { type: String, required: true },
-  expenseDate: { type: Date, required: true },
+  expenseDate: { type: String, required: true },
   expenseDescription: { type: String, required: true },
   expenseType: { type: String, required: true },
   amount: { type: Number, required: true },
   receiptFileName: { type: String},
-  status: { type: String, default: "PENDING" },
-});
+  status: {
+    type: String,
+    enum: ['PENDING', 'APPROVED', 'REJECTED'], 
+    default: 'PENDING',
+  },});
+  expenseSchema.index({ expencesId: 1 }, { unique: true });
 
 const Expense = mongoose.model("Expense", expenseSchema);
 

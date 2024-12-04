@@ -10,7 +10,7 @@ const ExpencesController = require('../controllers/ExpencesController')
 const  TimeOffController  = require('../controllers/TimeOffRequestController');
 const  TimesheetController  = require('../controllers/TimeSheetController');
 const LoginController = require('../controllers/LoginController')
-
+const UploadCSVController =  require('../controllers/EmployeeBulkController')
 const router = express.Router();
 
 // Employee Rotures Controller
@@ -19,6 +19,8 @@ router.get('/employee', EmployeeController.getAllEmployee);
 router.get('/employee/:employeeId', EmployeeController.getEmployeeUserById);
 router.delete('/employee/:employeeId', EmployeeController.deleteEmployee);
 router.put('/employee/:employeeId', EmployeeController.updateEmployee);
+router.post('/employee/upload', upload.single('file'), UploadCSVController.uploadCSV);
+
 
 
 
@@ -35,6 +37,7 @@ router.post('/uploaddocument', upload.single('image'), DocumentConttroller.Emplo
 router.put('/uploaddocument/:documentId', upload.single('image'), DocumentConttroller.EmployeeDocumentEdite);
 router.get('/uploaddocument', DocumentConttroller.getAllEmployeeDocuments);
 router.get('/uploaddocument/:documentId', DocumentConttroller.getEmployeeDocumentById);
+router.get("/uploaddocuments/:employeeId", DocumentConttroller.getEmployeedDocumentById);
 router.delete('/uploaddocument/:documentId', DocumentConttroller.EmployeeDocumentsDelete);
 router.put('/uploaddocument/approved/:documentId', DocumentConttroller.EmployeeDocApproveed);
 router.put('/uploaddocument/reject/:documentId', DocumentConttroller.EmployeeDocReject);
@@ -74,7 +77,7 @@ router.delete('/expences/:expencesId', ExpencesController.DeleteExpencesDocument
 router.get('/expences', ExpencesController.getAllExpences);
 router.get('/expences/:expencesId', ExpencesController.getPoliciesDocumentById);
 router.get('/expencess/:employeeId', ExpencesController.getEmployeedDocumentById);
-router.put('/expences/approved/:expencesId', ExpencesController.ExpnencesApproveed);
+router.put('/expences/approved/:expencesId', ExpencesController.ExpensesApproved);
 router.put('/expences/reject/:expencesId', ExpencesController.ExpnencesReject);
 
 
@@ -83,6 +86,8 @@ router.put('/expences/reject/:expencesId', ExpencesController.ExpnencesReject);
 router.post('/timeoff', TimeOffController.TimeOffRequestDoc);
 router.get('/timeoff', TimeOffController.getAllTimeOffRequest);
 router.get('/timeoff/:timeoffId', TimeOffController.getAllTimeOffRequestById);
+router.get('/timeoffs/:employeeId', TimeOffController.getAllEmployeeTimeOffRequestById);
+
 router.put('/timeoff/:timeoffId', TimeOffController.TimeOffRequestEdite);
 router.put('/timeoff/approved/:timeoffId', TimeOffController.TimeOffRequestApproveed);
 router.put('/timeoff/reject/:timeoffId', TimeOffController.TimeOffRequestReject);

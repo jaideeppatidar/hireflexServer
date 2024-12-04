@@ -14,7 +14,6 @@ const employeeSchema = new Schema(
     mobile: { type: String },
     designation: { type: String, default: "" },
     role: { type: String, default: "" },
-    joiningDate: { type: String, default: "" },
     department: { type: String, default: "" },
     email: { type: String, required: true, unique: true },
     dob: { type: String },

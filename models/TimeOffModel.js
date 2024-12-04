@@ -18,7 +18,7 @@ const leaveRequestSchema = new Schema({
     required: true,
   },
   partialDays: {
-    type: Number,
+    type: String,
     default: 0,
   },
   reason: {
@@ -32,7 +32,8 @@ const leaveRequestSchema = new Schema({
   },
   status: {
     type: String,
-    default: "Pending",
+    enum: ['PENDING', 'APPROVED', 'REJECTED'], 
+    default: 'PENDING',
   },
 });
 const LeaveRequest = mongoose.model("LeaveRequest", leaveRequestSchema);
