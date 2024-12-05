@@ -69,7 +69,6 @@ exports.CreateEmployee = async (req, res) => {
       )}-${String(d.getDate()).padStart(2, "0")}`;
     };
     const formatteddob = formatDate(dob);
-    const formattedjoiningDate = formatDate(joiningDate);
     const formattedemploymentStartDate = formatDate(employmentStartDate);
     const formattedprobationStartDate = formatDate(probationStartDate);
     const formattedpassportExpiryDate = formatDate(passportExpiryDate);
@@ -99,7 +98,6 @@ exports.CreateEmployee = async (req, res) => {
       mobile,
       designation,
       department,
-      joiningDate: formattedjoiningDate,
       email,
       role,
       dob:formatteddob,

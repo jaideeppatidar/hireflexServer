@@ -23,6 +23,7 @@ exports.findAllUsers = async () => {
 
 exports.createUser = async (userData) => {
   try {
+    
     const hashedPassword = await helper.hashPassword(userData.password);
     const user = new User({
       ...userData,

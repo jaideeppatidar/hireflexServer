@@ -9,6 +9,10 @@ const PoliciesController = require('../controllers/PoliciesController')
 const ExpencesController = require('../controllers/ExpencesController')
 const  TimeOffController  = require('../controllers/TimeOffRequestController');
 const  TimesheetController  = require('../controllers/TimeSheetController');
+const  ChatController  = require('../controllers/ChatController');
+const  SuperAdminChatController  = require('../controllers/AdminChatController');
+
+
 const LoginController = require('../controllers/LoginController')
 const UploadCSVController =  require('../controllers/EmployeeBulkController')
 const router = express.Router();
@@ -20,6 +24,19 @@ router.get('/employee/:employeeId', EmployeeController.getEmployeeUserById);
 router.delete('/employee/:employeeId', EmployeeController.deleteEmployee);
 router.put('/employee/:employeeId', EmployeeController.updateEmployee);
 router.post('/employee/upload', upload.single('file'), UploadCSVController.uploadCSV);
+
+
+
+
+// Super Admin Chat Controller for Admin Chat Controller
+router.post('/chat', ChatController.ChatSendEmplooye);
+router.get('/chat', ChatController.ChatGetEmployeeMessages);
+router.get('/chats/:employeeId', ChatController.ChatGetEmployeeMessagesById);
+
+// Super Admin Chat Controller for Admin Chat Controller
+router.post('/chat/send', SuperAdminChatController.ChatSendMessage);
+router.get('/chat/messages/superadmin', SuperAdminChatController.ChatGetMessagesForSuperAdmin);
+router.get('/chat/messages/:employeeId', SuperAdminChatController.ChatGetMessagesByEmployeeId);
 
 
 
@@ -99,7 +116,7 @@ router.delete('/timeoff/:timeoffId', TimeOffController.TimeOffRequestDelete);
 router.post('/timesheet', TimesheetController.TimeSheetDocument);
 router.get('/timesheet', TimesheetController.getAllTimesheets);
 router.get('/timesheet/:timesheetId', TimesheetController.getTimesheetById);
-router.get('/timesheet/:employeeId', TimesheetController.getTimsheetEmployeeIdById);
+router.get('/timesheets/:employeeId', TimesheetController.getTimsheetEmployeeIdById);
 router.put('/timesheet/:timesheetId', TimesheetController.updateTimesheet);
 router.delete('/timesheet/:timesheetId', TimesheetController.deleteTimesheet);
 router.put('/timesheet/approved/:timesheetId', TimesheetController.TimesheetApproveed);
