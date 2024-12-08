@@ -9,14 +9,11 @@ exports.ChatSendEmplooye = async (req, res) => {
     }
   
     try {
-      // Check if the user exists
       const user = await userService.findUserByEmployeeId(employeeId);
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-  
-      // Creating a new message object and saving it to MongoDB
-      const newMessage = new Message({
+        const newMessage = new Message({
         employeeId,
         message,
       });
@@ -27,8 +24,6 @@ exports.ChatSendEmplooye = async (req, res) => {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   };
-
-
 
 
     exports.ChatGetEmployeeMessages = async (req, res) => {

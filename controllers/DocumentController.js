@@ -3,7 +3,7 @@ exports.EmployeeDocument = async (req, res) => {
     try {
       const { employeeName, employeeId, documentName, uploadDate, status, uploaded } =
         req.body;
-      const image = req.file ? req.file.path : null;
+      const image = req.file ? req.file.filename : null;
       if (!image) {
         return res.status(400).json({ error: "Image file is required" });
       }
@@ -43,7 +43,7 @@ exports.EmployeeDocument = async (req, res) => {
       const { documentId } = req.params; 
       const { employeeName, uploadDate, status, uploaded ,documentName} = req.body;
   
-      const image = req.file ? req.file.path : null; 
+      const image = req.file ? req.file.filename : null; 
       const validUploadDate = uploadDate ? new Date(uploadDate) : null;
         if (uploadDate && isNaN(validUploadDate.getTime())) {
         return res.status(400).json({ error: "Invalid upload date" });

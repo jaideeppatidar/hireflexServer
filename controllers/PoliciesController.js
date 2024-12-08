@@ -10,7 +10,7 @@ exports.PoliciesCreate = async (req, res) => {
       };
       const formatteduploadDate = formatDate(uploadDate);
       const currentValue = (current === 'true' || current === true);
-      const filePath = req.file ? req.file.path : null;
+      const filePath = req.file ? req.file.filename : null;
         
       const newPolicy = new PoliciesModel({
           policyName,
@@ -46,7 +46,7 @@ exports.PoliciesDocumentEdite =  async (req, res) => {
                 policyName,
                 current:currentValue,
                 description,
-                file: req.file ? req.file.path : undefined,
+                file: req.file ? req.file.filename : undefined,
                 uploadDate: formatteduploadDate, 
             },
             { new: true, runValidators: true }
