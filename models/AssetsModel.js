@@ -35,7 +35,6 @@ const assetSchema = new mongoose.Schema(
     serialNumber: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
     insuranceDetails: {

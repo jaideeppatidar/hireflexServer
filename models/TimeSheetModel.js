@@ -26,7 +26,7 @@ const timesheetSchema = new Schema(
       required: true,
     },
     inTimeMM: {
-      type: String,
+      type: Number,
       required: true,
     },
     inPeriod: {
@@ -42,7 +42,7 @@ const timesheetSchema = new Schema(
       required: true,
     },
     outTimeMM: {
-      type: String,
+      type: Number,
       required: true,
     },
     outPeriod: {
