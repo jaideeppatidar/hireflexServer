@@ -2,7 +2,7 @@ const PerksModel = require("../models/PerksModel");
 exports.PerksDocument = async (req, res) => {
   try {
     const { perksName, url, description,category } = req.body;
-    const image = req.file ? req.file.path : null;
+    const image = req.file ? req.file.filename : null;
     const perksDocument = new PerksModel({
       perksName,
       description,
@@ -27,13 +27,13 @@ exports.PerksDocumentEdite = async (req, res) => {
   try {
     const { perksId } = req.params;
     const { perksName, url, description ,category} = req.body;
-    const image = req.file ? req.file.path : null;
+    const image = req.file ? req.file.filename : null;
     const perksDocument = await PerksModel.findOneAndUpdate({ perksId });
     perksDocument.perksName = perksName || perksDocument.perksName;
     perksDocument.category = category || perksDocument.category;
     perksDocument.description = description || perksDocument.description;
     perksDocument.url = url || perksDocument.url;
-    if (image) perksDocument.image = image;
+    if (image) perksDocument.v = image;
     await perksDocument.save();
     res.status(200).json({
       message: "Document updated successfully",

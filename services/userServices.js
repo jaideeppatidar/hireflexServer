@@ -23,17 +23,23 @@ exports.findAllUsers = async () => {
 
 exports.createUser = async (userData) => {
   try {
-    
+    if (!userData.password || typeof userData.password !== 'string') {
+      throw new Error("Invalid or missing password");
+    }
+
     const hashedPassword = await helper.hashPassword(userData.password);
     const user = new User({
       ...userData,
       password: hashedPassword,
     });
+
     return await user.save();
   } catch (error) {
+    console.error("Error in createUser:", error.message);
     throw new Error(error.message || "Error creating user");
   }
 };
+
 
 exports.findUserByEmployeeId = async (employeeId) => {
   try {

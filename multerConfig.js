@@ -27,10 +27,11 @@ const fileFilter = (req, file, cb) => {
     "image/png",
     "text/csv",
     "application/vnd.ms-excel",
-  ];  if (validTypes.includes(file.mimetype)) {
+  ];
+  if (validTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Invalid file type. Please upload a PDF, JPEG, or PNG file."), false);
+    cb(new Error("Invalid file type"), false);
   }
 };
 
@@ -42,3 +43,4 @@ const upload = multer({
 });
 
 module.exports = upload;
+upload.js

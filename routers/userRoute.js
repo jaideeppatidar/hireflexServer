@@ -16,11 +16,11 @@ const UploadCSVController =  require('../controllers/EmployeeBulkController')
 const router = express.Router();
 
 // Employee Rotures Controller
-router.post('/employee', EmployeeController.CreateEmployee);
+router.post('/employee',upload.single('image'), EmployeeController.CreateEmployee);
 router.get('/employee', EmployeeController.getAllEmployee);
 router.get('/employee/:employeeId', EmployeeController.getEmployeeUserById);
 router.delete('/employee/:employeeId', EmployeeController.deleteEmployee);
-router.put('/employee/:employeeId', EmployeeController.updateEmployee);
+router.put('/employee/:employeeId',upload.single('image'), EmployeeController.updateEmployee);
 router.post('/employee/upload', upload.single('file'), UploadCSVController.uploadCSV);
 
 

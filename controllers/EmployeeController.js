@@ -1,9 +1,6 @@
 const { sendWelcomeEmail } = require("../Nodemailer/Nodemailer");
 const userService = require("../services/userServices");
 const mongoose = require("mongoose");
-
-
-
 exports.CreateEmployee = async (req, res) => {
   try {
     const {
@@ -48,7 +45,7 @@ exports.CreateEmployee = async (req, res) => {
       licenseClass,
       dateOfExpiry,
       visaNumber,
-      visaExpiryDate
+      visaExpiryDate,
     } = req.body;
 
     // Check if user with the same email already exists
@@ -73,16 +70,14 @@ exports.CreateEmployee = async (req, res) => {
     const formattedprobationStartDate = formatDate(probationStartDate);
     const formattedpassportExpiryDate = formatDate(passportExpiryDate);
     const formatteddateOfExpiry = formatDate(dateOfExpiry);
-    const formattedvisaExpiryDate = formatDate(visaExpiryDate);
-
-
-
+    const formattedvisaExpiryDate = formatDate(visaExpiryDate)
 
     // Generate employeeId in the format HFX0001
     const lastEmployee = await mongoose.model('Employee').findOne().sort({ employeeId: -1 });
     const lastEmployeeId = lastEmployee ? lastEmployee.employeeId : "HFX0000";
     const numberPart = parseInt(lastEmployeeId.slice(3)) + 1; // Increment the number part
     const employeeId = `HFX${String(numberPart).padStart(4, '0')}`; // Format the new employeeId
+    const image = req.file ? req.file.filename : null;
 
     // Create new user (employee)
     const newUser = await userService.createUser({
@@ -128,7 +123,8 @@ exports.CreateEmployee = async (req, res) => {
       licenseClass,
       dateOfExpiry :formatteddateOfExpiry,
       visaNumber,
-      visaExpiryDate:formattedvisaExpiryDate
+      visaExpiryDate:formattedvisaExpiryDate,
+      image
     });
     await sendWelcomeEmail(newUser);
     res.status(201).json({

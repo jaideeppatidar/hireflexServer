@@ -4,6 +4,10 @@ const employeeSchema = new Schema(
   {
     employeeId: { type: String, unique: true, required: true },
     title: { type: String, default: "" },
+    image: {
+      type: String,
+      default: null,
+    },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     middleName: { type: String, default: "" },
@@ -51,7 +55,7 @@ const employeeSchema = new Schema(
 
 employeeSchema.pre("save", async function (next) {
   const employee = this;
-    if (!employee.isNew) return next();
+  if (!employee.isNew) return next();
   try {
     const lastEmployee = await mongoose
       .model("Employee")
@@ -60,7 +64,7 @@ employeeSchema.pre("save", async function (next) {
     const lastEmployeeId = lastEmployee ? lastEmployee.employeeId : "HFX0000";
     const numberPart = parseInt(lastEmployeeId.slice(3)) + 1;
     const newEmployeeId = `HFX${String(numberPart).padStart(4, "0")}`;
-        employee.employeeId = newEmployeeId;
+    employee.employeeId = newEmployeeId;
     next();
   } catch (error) {
     next(error);

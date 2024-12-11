@@ -13,8 +13,9 @@ const DocumentSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  image: {
-    type: String,
+  image: { 
+    type: String, 
+    default: null 
   },
   url: {
     type: String,
