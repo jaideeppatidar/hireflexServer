@@ -27,7 +27,7 @@ exports.TimeOffRequestDoc = async (req, res) => {
       partialDays,
       reason,
       type,
-      status: "PENDING",
+      status: "Pending",
     });
 
     const savedTimeOff = await newTimeOff.save();
@@ -127,7 +127,7 @@ exports.TimeOffRequestApproveed = async (req, res) => {
     // Update the query to match the correct field name
     const updatedTimeOff = await TimeOffReqModel.findOneAndUpdate(
       { timeoffId: timeoffId }, // Use singular `timeoffId`
-      { status: "APPROVED" },
+      { status: "Approved" },
       { new: true }
     );
 
@@ -158,7 +158,7 @@ exports.TimeOffRequestReject = async (req, res) => {
 
     const updatedExpense = await TimeOffReqModel.findOneAndUpdate(
       { timeoffId: timeoffId },
-      { status: "REJECTED" },
+      { status: "Rejected" },
       { new: true }
     );
 

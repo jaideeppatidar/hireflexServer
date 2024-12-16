@@ -123,5 +123,7 @@ router.put('/timesheet/reject/:timesheetId', TimesheetController.TimesheetReject
 
 router.post('/login',LoginController.loginUser);
 router.post('/super',LoginController.SuperAdminLogin);
+router.post('/admin',LoginController.AdminLogin);
+
 
 module.exports = router;

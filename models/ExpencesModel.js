@@ -16,8 +16,8 @@ const expenseSchema = new mongoose.Schema({
   receiptFileName: { type: String},
   status: {
     type: String,
-    enum: ['PENDING', 'APPROVED', 'REJECTED'], 
-    default: 'PENDING',
+    enum: ['Pending', 'Approved', 'Rejected'], 
+      default: 'Pending',
   },});
   expenseSchema.index({ expencesId: 1 }, { unique: true });
 

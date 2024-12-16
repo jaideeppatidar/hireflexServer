@@ -34,8 +34,8 @@ const DocumentSchema = new mongoose.Schema({
   image: { type: String, required: true },
   status: {
     type: String,
-    enum: ['PENDING', 'APPROVED', 'REJECTED'], 
-    default: 'PENDING',
+    enum: ['Pending', 'Approved', 'Rejected'], 
+      default: 'Pending',
   },
 }, {
   timestamps: true, 

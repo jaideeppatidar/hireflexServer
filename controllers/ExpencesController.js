@@ -17,7 +17,7 @@ exports.ExpencesDocument = async (req, res) => {
         expenseType,
         amount,
         receiptFileName, 
-        status: 'PENDING', 
+        status: 'Pending', 
       });
   
       const savedExpense = await newExpense.save();
@@ -89,7 +89,7 @@ exports.DeleteExpencesDocument = async (req, res) => {
   
       const updatedExpense = await ExpencesModel.findOneAndUpdate(
         { expencesId: expencesId },
-        { status: "APPROVED" },
+        { status: "Approved" },
         { new: true }
       );
   
@@ -117,7 +117,7 @@ exports.DeleteExpencesDocument = async (req, res) => {
       const { expencesId } = req.params;
       const ExpnencesR = await ExpencesModel.findOneAndUpdate(
         { expencesId: expencesId },
-        { status: "REJECTED" },
+        { status: "Rejected" },
         { new: true }
       );
     

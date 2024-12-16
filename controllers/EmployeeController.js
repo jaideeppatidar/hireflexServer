@@ -39,7 +39,8 @@ exports.CreateEmployee = async (req, res) => {
       taxCode,
       niNumber,
       passportNumber,
-      countryOfIssue,
+      passportcountryOfIssue,
+      drivingcountryOfIssue,
       passportExpiryDate,
       licenseNumber,
       licenseClass,
@@ -117,7 +118,8 @@ exports.CreateEmployee = async (req, res) => {
       taxCode,
       niNumber,
       passportNumber,
-      countryOfIssue,
+      passportcountryOfIssue,
+      drivingcountryOfIssue,
       passportExpiryDate: formattedpassportExpiryDate,
       licenseNumber,
       licenseClass,
@@ -177,6 +179,11 @@ exports.CreateEmployee = async (req, res) => {
     const { employeeId } = req.params; 
     const userDetails = req.body;
     try {
+      if (req.file) {
+        // If an image file is provided, add it to the userDetails object
+        userDetails.image = req.file.filename; // or you can use req.file.filename depending on your storage setup
+      }
+  
       const updatedUser = await userService.updateUser(employeeId, userDetails);
         res.status(200).json({
         message: "Employee updated successfully",

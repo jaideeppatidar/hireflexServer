@@ -60,8 +60,8 @@ const timesheetSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['PENDING', 'APPROVED', 'REJECTED'], 
-      default: 'PENDING',
+      enum: ['Pending', 'Approved', 'Rejected'], 
+      default: 'Pending',
     },
   },
   {

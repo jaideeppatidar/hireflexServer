@@ -47,7 +47,7 @@ exports.SuperAdminLogin = async (req, res) => {
         const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "2h" });
         res.status(200).json({
         message: " Admin login successful",
-        token,
+        jwtToken: token,
       });
     } catch (error) {
       console.error("Login error:", error);

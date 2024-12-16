@@ -42,7 +42,9 @@ const employeeSchema = new Schema(
     taxCode: { type: String, default: "" },
     niNumber: { type: String, default: "" },
     passportNumber: { type: String, default: "" },
-    countryOfIssue: { type: String, default: "" },
+    passportcountryOfIssue: { type: String, default: "" },
+    drivingcountryOfIssue: { type: String, default: "" },
+
     passportExpiryDate: { type: String, default: "" },
     licenseNumber: { type: String, default: "" },
     licenseClass: { type: String, default: "" },
