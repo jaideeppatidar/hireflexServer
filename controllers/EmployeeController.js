@@ -140,6 +140,11 @@ exports.CreateEmployee = async (req, res) => {
     });
   }
 };
+
+
+
+
+
   exports.getAllEmployee = async (req, res) => {
     try {
       const users = await userService.findAllUsers();
@@ -165,7 +170,6 @@ exports.CreateEmployee = async (req, res) => {
   };
     exports.getEmployeeUserById = async (req, res) => {
     try {
-      console.log(req.params);
       const { employeeId } = req.params; 
    const user =    await userService.findUserByEmployeeId(employeeId);
       res.status(200).json(user);

@@ -187,7 +187,7 @@ exports.TimeOffRequestReject = async (req, res) => {
 exports.getAllEmployeeTimeOffRequestById = async (req, res) => {
   try {
     const { employeeId } = req.params;
-    const timeoffDocument = await TimeOffReqModel.findOne({ employeeId });
+    const timeoffDocument = await TimeOffReqModel.find({ employeeId });
     res.status(200).json({
       message: "employeeId  fetched By Id successfully",
       document: timeoffDocument,

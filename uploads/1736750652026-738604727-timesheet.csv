@@ -1,0 +1,8 @@
+Employee Name,In Date,In Time (HH),In Time (MM),AM/PM,Out Date,Out Time (HH),Out Time (MM),AM/PM,Attendance,Status ,Hours
+John Doe   ,2025-01-06,10,0,AM,2025-01-06,7,0,PM,Regularized,Pending,9
+John Doe   ,2025-01-07,10,7,AM,2025-01-07,7,6,PM,Regularized,Approved,8.59
+,2025-01-08,,,,2025-01-08,,,,,,
+,2025-01-09,,,,2025-01-09,,,,,,
+,2025-01-10,,,,2025-01-10,,,,,,
+,2025-01-11,,,,2025-01-11,,,,,,
+,2025-01-12,,,,2025-01-12,,,,,,

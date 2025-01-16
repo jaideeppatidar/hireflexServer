@@ -26,11 +26,6 @@ const DocumentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  uploaded: {
-    type: String,
-    enum: ['True', 'False'], // Update to match expected values
-    required: true,
-  },
   image: { type: String, required: true },
   status: {
     type: String,

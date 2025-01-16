@@ -1,7 +1,7 @@
 const  DocumentModel  = require('../models/DocumentsModel')
 exports.EmployeeDocument = async (req, res) => {
     try {
-      const { employeeName, employeeId, documentName, uploadDate, status, uploaded } =
+      const { employeeName, employeeId, documentName, uploadDate, status } =
         req.body;
       const image = req.file ? req.file.filename : null;
       if (!image) {
@@ -24,7 +24,6 @@ exports.EmployeeDocument = async (req, res) => {
         uploadDate: formatuploadDate,
         status,
         image,
-        uploaded,
       });
       await EmployeeDocument.save();
       res.status(201).json({
@@ -41,7 +40,7 @@ exports.EmployeeDocument = async (req, res) => {
   exports.EmployeeDocumentEdite = async (req, res) => {
     try {
       const { documentId } = req.params; 
-      const { employeeName, uploadDate, status, uploaded ,documentName} = req.body;
+      const { employeeName, uploadDate, status ,documentName} = req.body;
   
       const image = req.file ? req.file.filename : null; 
       const validUploadDate = uploadDate ? new Date(uploadDate) : null;
@@ -58,7 +57,6 @@ exports.EmployeeDocument = async (req, res) => {
       if (documentName) document.documentName = documentName;
       if (status) document.status = status;
       if (image) document.image = image;
-      if (uploaded !== undefined) document.uploaded = uploaded;
   
       await document.save();
   

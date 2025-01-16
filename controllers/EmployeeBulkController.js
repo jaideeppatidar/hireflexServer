@@ -1,5 +1,7 @@
 const fs = require('fs');
 const csvParser = require('csv-parser');
+const { sendWelcomeEmail } = require("../Nodemailer/Nodemailer");
+
 const EmployeeModel = require('../models/EmployeeModel'); 
 exports.uploadCSV = (req, res) => {
     try {
@@ -62,6 +64,14 @@ exports.uploadCSV = (req, res) => {
                     try {
                         await EmployeeModel.insertMany(results);
                         console.log('Data inserted successfully');
+                        results.forEach(async (employee) => {
+                            try {
+                                await sendWelcomeEmail(employee); // Pass the entire employee object
+                                console.log(`Welcome email sent to: ${employee.email}`);
+                            } catch (err) {
+                                console.error(`Error sending email to ${employee.email}:`, err.message);
+                            }
+                        });
                         res.status(200).json({
                             message: 'File uploaded, processed, and data saved successfully',
                             data: results, 

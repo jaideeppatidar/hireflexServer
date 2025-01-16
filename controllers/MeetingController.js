@@ -147,19 +147,23 @@ exports.getMeetingById = async (req, res) => {
 exports.getEmployeeById = async (req, res) => {
   try {
     const { employeeId } = req.params;
-    const meeting = await MeetingModel.findOne({ employeeId });
-    if (!meeting) {
-      return res.status(404).json({ message: "Meeting not found ?????" });
+    const meeting = await MeetingModel.find({ employeeId });
+
+    if (!meeting || meeting.length === 0) {
+      return res.status(404).json({ message: "No meetings found for the given employeeId" });
     }
+
     res.status(200).json({
-      message: "Meeting retrieved UserId  successfully",
+      message: "Meetings retrieved successfully for the given UserId",
       meeting,
     });
   } catch (error) {
-    console.error("Error fetching meeting:", error);
+    console.error("Error fetching meetings:", error);
     res.status(500).json({
-      error: error.message || "An error occurred while fetching the meeting",
+      error: error.message || "An error occurred while fetching the meetings",
     });
   }
 };
+
+
 
